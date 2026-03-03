@@ -23,7 +23,7 @@ export default function Hero() {
             contentKey="hero.headline"
             defaultText="Building Strong Concepts.\nAchieving Academic Excellence."
             as="h1"
-            className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5 lg:whitespace-nowrap"
+            className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-5"
             multiline
           />
           <EditableText

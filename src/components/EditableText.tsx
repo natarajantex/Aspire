@@ -53,12 +53,13 @@ export default function EditableText({
     // Render normal content for public users
     // Handle newlines for multiline text
     if (multiline && typeof displayValue === 'string') {
+      const lines = displayValue.replace(/\\n/g, '\n').split('\n');
       return (
         <Component className={className}>
-          {displayValue.split('\n').map((line, i) => (
+          {lines.map((line, i) => (
             <React.Fragment key={i}>
               {line}
-              {i < displayValue.split('\n').length - 1 && <br />}
+              {i < lines.length - 1 && <br />}
             </React.Fragment>
           ))}
         </Component>
@@ -110,10 +111,10 @@ export default function EditableText({
           <div className={`outline outline-1 outline-dashed outline-transparent group-hover:outline-[var(--color-accent)]/50 transition-all duration-200 rounded-sm ${className}`}>
             {multiline && typeof displayValue === 'string' ? (
               <Component className={className}>
-                {displayValue.split('\n').map((line, i) => (
+                {displayValue.replace(/\\n/g, '\n').split('\n').map((line, i, arr) => (
                   <React.Fragment key={i}>
                     {line}
-                    {i < displayValue.split('\n').length - 1 && <br />}
+                    {i < arr.length - 1 && <br />}
                   </React.Fragment>
                 ))}
               </Component>
