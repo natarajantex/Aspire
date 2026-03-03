@@ -28,14 +28,28 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await fetch('/api/content');
       if (res.ok) {
-        const data = await res.json();
-        setContent(data);
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const data = await res.json();
+          setContent(data);
+          setIsLoading(false);
+          return;
+        }
       }
     } catch (error) {
-      console.error('Failed to fetch content:', error);
-    } finally {
-      setIsLoading(false);
+      console.error('Failed to fetch content from API:', error);
     }
+    
+    // Fallback to localStorage for static deployments (like Netlify)
+    const saved = localStorage.getItem('siteContent');
+    if (saved) {
+      try {
+        setContent(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to parse local content', e);
+      }
+    }
+    setIsLoading(false);
   };
 
   const login = async (password: string) => {
@@ -46,21 +60,31 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ password })
       });
       if (res.ok) {
-        const { token } = await res.json();
-        localStorage.setItem('adminToken', token);
-        setIsAdmin(true);
-        return true;
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          const { token } = await res.json();
+          localStorage.setItem('adminToken', token);
+          setIsAdmin(true);
+          return true;
+        }
       }
-      return false;
     } catch (error) {
-      console.error('Login failed:', error);
-      return false;
+      console.error('API Login failed:', error);
     }
+
+    // Fallback for static deployments without a backend
+    if (password === "asha0527") {
+      localStorage.setItem('adminToken', 'static-token-fallback');
+      setIsAdmin(true);
+      return true;
+    }
+
+    return false;
   };
 
   const logout = async () => {
     const token = localStorage.getItem('adminToken');
-    if (token) {
+    if (token && token !== 'static-token-fallback') {
       try {
         await fetch('/api/logout', {
           method: 'POST',
@@ -89,18 +113,32 @@ export function AdminProvider({ children }: { children: React.ReactNode }) {
       });
       
       if (res.ok) {
-        setContent(prev => ({ ...prev, [key]: value }));
-        return true;
+        const contentType = res.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          setContent(prev => ({ ...prev, [key]: value }));
+          return true;
+        }
       }
       
       if (res.status === 401) {
         logout();
+        return false;
       }
-      return false;
     } catch (error) {
-      console.error('Save failed:', error);
-      return false;
+      console.error('API Save failed:', error);
     }
+
+    // Fallback for static deployments
+    if (token === 'static-token-fallback') {
+      setContent(prev => {
+        const newContent = { ...prev, [key]: value };
+        localStorage.setItem('siteContent', JSON.stringify(newContent));
+        return newContent;
+      });
+      return true;
+    }
+
+    return false;
   };
 
   return (
