@@ -21,15 +21,20 @@ export default function AdminLogin() {
     setError('');
     setIsLoading(true);
 
-    const success = await login(password);
-    
-    if (success) {
-      navigate('/admin/dashboard');
-    } else {
-      setError('Invalid password. Please try again.');
+    try {
+      const success = await login(password);
+      
+      if (success) {
+        navigate('/admin/dashboard');
+      } else {
+        setError('Invalid password. Please try again.');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An error occurred during login.');
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   };
 
   return (

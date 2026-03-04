@@ -206,8 +206,17 @@ export default function AdminDashboard() {
               </div>
               <div className="p-6 space-y-6 divide-y divide-gray-100">
                 {keys.map((key, index) => {
-                  const isImageKey = key.toLowerCase().includes('image') || key.toLowerCase().includes('thumb') || (localContent[key] && (localContent[key].startsWith('http') || localContent[key].startsWith('/')) && !localContent[key].includes(' ') && !localContent[key].match(/\.(mp4|webm|ogg)$/i));
-                  const isVideoKey = key.toLowerCase().includes('video') || key.toLowerCase().includes('src') || (localContent[key] && localContent[key].match(/\.(mp4|webm|ogg)$/i));
+                  const keyLower = key.toLowerCase();
+                  const val = localContent[key] || '';
+                  
+                  // A key is an image if it has 'image', 'bg', 'thumb' in the name, OR if the value looks like an image URL
+                  const isImageKey = keyLower.includes('image') || keyLower.includes('bg') || keyLower.includes('thumb') || 
+                    (val && (val.startsWith('http') || val.startsWith('/')) && !val.includes(' ') && !val.match(/\.(mp4|webm|ogg)$/i) && val.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i));
+                  
+                  // A key is a video if it has 'video' in the name (but not thumb), OR if the value looks like a video URL
+                  const isVideoKey = (keyLower.includes('video') && !keyLower.includes('thumb') && !keyLower.includes('title') && !keyLower.includes('desc') && !keyLower.includes('subtitle')) || 
+                    (val && val.match(/\.(mp4|webm|ogg)$/i));
+                    
                   const isMediaKey = isImageKey || isVideoKey;
                   
                   return (

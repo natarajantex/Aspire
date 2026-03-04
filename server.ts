@@ -101,6 +101,12 @@ const defaultContent: Record<string, string> = {
   "video.thumb.4": "https://picsum.photos/seed/video4/400/711",
   "video.thumb.5": "https://picsum.photos/seed/video5/400/711",
   "video.thumb.6": "https://picsum.photos/seed/video6/400/711",
+  "video.src.1": "",
+  "video.src.2": "",
+  "video.src.3": "",
+  "video.src.4": "",
+  "video.src.5": "",
+  "video.src.6": "",
   "video.desc.1": "Student Testimonial – Coming Soon",
   "video.desc.2": "Parent Feedback – Video Upload Pending",
   "video.desc.3": "Student Testimonial – Coming Soon",
@@ -149,7 +155,7 @@ async function startServer() {
   app.post("/api/login", (req, res) => {
     const { password } = req.body;
     // Hardcoded password as requested
-    if (password === "asha0527") {
+    if (password && password.trim() === "asha0527") {
       const token = crypto.randomBytes(32).toString("hex");
       const expiresAt = Date.now() + 30 * 60 * 1000; // 30 minutes
       db.prepare("INSERT INTO sessions (token, expires_at) VALUES (?, ?)").run(token, expiresAt);
