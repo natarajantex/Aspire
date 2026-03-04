@@ -8,6 +8,7 @@ export default function VideoTestimonials() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
@@ -30,6 +31,8 @@ export default function VideoTestimonials() {
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
 
+    if (isHovered) return;
+
     // Optional: Auto-scroll
     const autoplay = setInterval(() => {
       if (emblaApi.canScrollNext()) {
@@ -40,7 +43,7 @@ export default function VideoTestimonials() {
     }, 5000);
 
     return () => clearInterval(autoplay);
-  }, [emblaApi, onInit, onSelect]);
+  }, [emblaApi, onInit, onSelect, isHovered]);
 
   const videos = [1, 2, 3, 4, 5, 6];
 
@@ -63,7 +66,11 @@ export default function VideoTestimonials() {
           <div className="w-24 h-1 bg-[var(--color-accent)] mx-auto rounded-full mt-6"></div>
         </div>
 
-        <div className="relative group">
+        <div 
+          className="relative group"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4 py-4">
               {videos.map((item) => (

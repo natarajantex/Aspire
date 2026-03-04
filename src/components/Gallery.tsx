@@ -8,6 +8,7 @@ export default function Gallery() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
@@ -30,6 +31,8 @@ export default function Gallery() {
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
 
+    if (isHovered) return;
+
     const autoplay = setInterval(() => {
       if (emblaApi.canScrollNext()) {
         emblaApi.scrollNext();
@@ -39,7 +42,7 @@ export default function Gallery() {
     }, 4000);
 
     return () => clearInterval(autoplay);
-  }, [emblaApi, onInit, onSelect]);
+  }, [emblaApi, onInit, onSelect, isHovered]);
 
   const images = [
     { key: "gallery.image.1", src: "https://picsum.photos/seed/classroom1/800/600", alt: "Interactive classroom sessions" },
@@ -69,7 +72,11 @@ export default function Gallery() {
           <div className="w-24 h-1 bg-[var(--color-accent)] mx-auto rounded-full mt-6"></div>
         </div>
 
-        <div className="relative group">
+        <div 
+          className="relative group"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex -ml-4">
               {images.map((img, index) => (
