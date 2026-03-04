@@ -210,7 +210,7 @@ export default function AdminDashboard() {
                   const val = localContent[key] || '';
                   
                   // A key is an image if it has 'image', 'bg', 'thumb' in the name, OR if the value looks like an image URL
-                  const isImageKey = keyLower.includes('image') || keyLower.includes('bg') || keyLower.includes('thumb') || 
+                  const isImageKey = (keyLower.includes('image') || keyLower.includes('bg') || keyLower.includes('thumb')) && !keyLower.includes('desc') || 
                     (val && (val.startsWith('http') || val.startsWith('/')) && !val.includes(' ') && !val.match(/\.(mp4|webm|ogg)$/i) && val.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i));
                   
                   // A key is a video if it has 'video' in the name (but not thumb), OR if the value looks like a video URL

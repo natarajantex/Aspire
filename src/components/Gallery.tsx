@@ -45,12 +45,12 @@ export default function Gallery() {
   }, [emblaApi, onInit, onSelect, isHovered]);
 
   const images = [
-    { key: "gallery.image.1", src: "https://picsum.photos/seed/classroom1/800/600", alt: "Interactive classroom sessions" },
-    { key: "gallery.image.2", src: "https://picsum.photos/seed/classroom2/800/600", alt: "Students writing topic-wise tests" },
-    { key: "gallery.image.3", src: "https://picsum.photos/seed/classroom3/800/600", alt: "Teacher explaining on whiteboard" },
-    { key: "gallery.image.4", src: "https://picsum.photos/seed/classroom4/800/600", alt: "Paper correction discussion" },
-    { key: "gallery.image.5", src: "https://picsum.photos/seed/classroom5/800/600", alt: "Parent meeting" },
-    { key: "gallery.image.6", src: "https://picsum.photos/seed/classroom6/800/600", alt: "Smart classroom learning" },
+    { key: "gallery.image.1", descKey: "gallery.image.1.desc", src: "https://picsum.photos/seed/classroom1/800/600", alt: "Interactive classroom sessions" },
+    { key: "gallery.image.2", descKey: "gallery.image.2.desc", src: "https://picsum.photos/seed/classroom2/800/600", alt: "Students writing topic-wise tests" },
+    { key: "gallery.image.3", descKey: "gallery.image.3.desc", src: "https://picsum.photos/seed/classroom3/800/600", alt: "Teacher explaining on whiteboard" },
+    { key: "gallery.image.4", descKey: "gallery.image.4.desc", src: "https://picsum.photos/seed/classroom4/800/600", alt: "Paper correction discussion" },
+    { key: "gallery.image.5", descKey: "gallery.image.5.desc", src: "https://picsum.photos/seed/classroom5/800/600", alt: "Parent meeting" },
+    { key: "gallery.image.6", descKey: "gallery.image.6.desc", src: "https://picsum.photos/seed/classroom6/800/600", alt: "Smart classroom learning" },
   ];
 
   return (
@@ -89,9 +89,14 @@ export default function Gallery() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 flex items-end pointer-events-none">
-                      <p className="text-white p-4 font-body text-base font-medium">
-                        {img.alt}
-                      </p>
+                      <div className="pointer-events-auto w-full p-4">
+                        <EditableText
+                          contentKey={img.descKey}
+                          defaultText={img.alt}
+                          as="p"
+                          className="text-white font-body text-base font-medium"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
