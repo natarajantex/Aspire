@@ -193,6 +193,9 @@ async function startServer() {
     res.json({ url: `/uploads/${req.file.filename}` });
   });
 
+  // Serve uploaded files explicitly
+  app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
