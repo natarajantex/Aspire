@@ -1,4 +1,4 @@
-import { Phone, MapPin, MessageCircle, Menu, X } from 'lucide-react';
+import { Phone, MapPin, MessageCircle, Menu, X, Instagram } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EditableText from './EditableText';
@@ -48,15 +48,27 @@ export default function Header() {
               />
             </div>
           </div>
-          <a 
-            href="https://wa.me/919843318566" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 text-[var(--color-accent)] hover:text-white transition-colors font-semibold"
-          >
-            <MessageCircle size={14} />
-            <span>WhatsApp Quick Link</span>
-          </a>
+          <div className="flex items-center gap-4">
+            <a 
+              href="https://www.instagram.com/aspire_academics_ganapathy?igsh=YzZ3ZGlldzV1anZw" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-[var(--color-accent)] hover:text-white transition-colors font-semibold"
+              aria-label="Instagram Profile"
+            >
+              <Instagram size={14} />
+              <span className="hidden sm:inline">Instagram</span>
+            </a>
+            <a 
+              href="https://wa.me/919843318566" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-[var(--color-accent)] hover:text-white transition-colors font-semibold"
+            >
+              <MessageCircle size={14} />
+              <span>WhatsApp Quick Link</span>
+            </a>
+          </div>
         </div>
       </div>
 

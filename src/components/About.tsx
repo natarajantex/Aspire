@@ -1,4 +1,4 @@
-import { Target, Star, BookOpen, PenTool, ClipboardCheck, TrendingUp } from 'lucide-react';
+import { Target, Star } from 'lucide-react';
 import EditableText from './EditableText';
 import EditableImage from './EditableImage';
 
@@ -102,43 +102,6 @@ export default function About() {
               To become the most trusted academic coaching centre in Coimbatore, known for discipline, clarity, and consistent board results.
             </p>
           </div>
-        </div>
-
-        {/* The Aspire Method */}
-        <div className="text-center mb-16">
-          <h2 className="font-heading font-semibold text-2xl md:text-3xl text-[var(--color-primary)] mb-4 mt-10 leading-snug">
-            The Aspire Method – Our 4-Step Academic System
-          </h2>
-          <div className="w-24 h-1 bg-[var(--color-accent)] mx-auto rounded-full mb-12"></div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden lg:block absolute top-1/2 left-[10%] right-[10%] h-0.5 bg-gray-200 -translate-y-1/2 z-0"></div>
-            
-            {/* Steps */}
-            {[
-              { icon: <BookOpen />, title: "Concept Mastery", desc: "Clear explanation from fundamentals" },
-              { icon: <PenTool />, title: "Guided Practice", desc: "Structured problem-solving sessions" },
-              { icon: <ClipboardCheck />, title: "Continuous Testing", desc: "Topic-wise and model exams" },
-              { icon: <TrendingUp />, title: "Performance Analysis", desc: "Feedback-driven improvement" }
-            ].map((step, idx) => (
-              <div key={idx} className="relative z-10 flex flex-col items-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div className="w-16 h-16 bg-[var(--color-primary)] text-white rounded-full flex items-center justify-center mb-4 shadow-md text-2xl font-bold">
-                  {idx + 1}
-                </div>
-                <h4 className="font-heading font-medium text-lg text-[var(--color-primary)] mb-2 whitespace-nowrap leading-snug">
-                  {step.title}
-                </h4>
-                <p className="font-body text-gray-700 text-base leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-          
-          <p className="font-heading font-medium text-lg text-[var(--color-primary)] mt-12 italic leading-snug">
-            This system ensures steady progress — not last-minute preparation.
-          </p>
         </div>
 
       </div>

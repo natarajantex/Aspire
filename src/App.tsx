@@ -10,6 +10,7 @@ import Hero from './components/Hero';
 import TrustStrip from './components/TrustStrip';
 import Features from './components/Features';
 import About from './components/About';
+import AspireMethod from './components/AspireMethod';
 import Courses from './components/Courses';
 import Gallery from './components/Gallery';
 import Testimonials from './components/Testimonials';
@@ -64,6 +65,7 @@ function MainLayout() {
         <TrustStrip />
         <Features />
         <About />
+        <AspireMethod />
         <Courses />
         <Gallery />
         <Testimonials />
