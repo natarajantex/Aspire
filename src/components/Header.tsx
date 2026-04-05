@@ -9,6 +9,14 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { content } = useAdmin();
 
+  const formatUrl = (url: string) => {
+    if (!url || url === '#' || url.startsWith('/')) return url;
+    if (!/^https?:\/\//i.test(url) && !/^mailto:/i.test(url) && !/^tel:/i.test(url)) {
+      return `https://${url}`;
+    }
+    return url;
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -124,7 +132,7 @@ export default function Header() {
 
           {/* Parent Login Button */}
           <a 
-            href={content['nav.parentLogin.url'] || '#'}
+            href={formatUrl(content['nav.parentLogin.url'] || '#')}
             target="_blank"
             rel="noopener noreferrer"
             className="border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-bold transition-colors whitespace-nowrap shadow-sm"
