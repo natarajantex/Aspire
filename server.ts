@@ -79,6 +79,9 @@ const defaultContent: Record<string, string> = {
   "method.4.front": "Feedback-driven improvement.",
   "method.4.back": "Detailed paper discussions and personalized feedback loops help students identify weak areas and turn them into undeniable strengths.",
 
+  "nav.parentLogin.text": "Parent Login",
+  "nav.parentLogin.url": "#",
+
   "contact.phone1": "+91 98433 18566",
   "contact.phone2": "+91 98435 23479",
   "contact.address": "Ganapathy, Coimbatore",

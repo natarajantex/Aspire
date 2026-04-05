@@ -130,9 +130,6 @@ export default function Testimonials() {
                       multiline
                     />
                     <div className="flex items-center gap-4 mt-auto pt-6 border-t border-gray-100">
-                      <div className="w-10 h-10 bg-[var(--color-light)] rounded-full flex items-center justify-center text-[var(--color-primary)] font-bold">
-                        {testimonial.defaultName.charAt(0)}
-                      </div>
                       <EditableText
                         contentKey={testimonial.nameKey}
                         defaultText={`— ${testimonial.defaultName}`}

@@ -2,10 +2,12 @@ import { Phone, MapPin, MessageCircle, Menu, X, Instagram } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EditableText from './EditableText';
+import { useAdmin } from '../context/AdminContext';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { content } = useAdmin();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,9 +88,10 @@ export default function Header() {
             </div>
           </a>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-2 lg:gap-5 xl:gap-8">
-            {navLinks.map((link) => (
+          <div className="flex items-center gap-3 md:gap-6">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-2 lg:gap-5 xl:gap-8">
+              {navLinks.map((link) => (
               link.isInternal ? (
                 <Link 
                   key={link.name} 
@@ -102,6 +105,8 @@ export default function Header() {
                 <a 
                   key={link.name} 
                   href={link.href}
+                  target={link.isExternal ? "_blank" : undefined}
+                  rel={link.isExternal ? "noopener noreferrer" : undefined}
                   className="relative text-xs lg:text-base xl:text-lg font-semibold text-[var(--color-dark)] hover:text-[var(--color-primary)] transition-colors py-2 group"
                 >
                   {link.name}
@@ -117,6 +122,16 @@ export default function Header() {
             </a>
           </nav>
 
+          {/* Parent Login Button */}
+          <a 
+            href={content['nav.parentLogin.url'] || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border-2 border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm font-bold transition-colors whitespace-nowrap shadow-sm"
+          >
+            {content['nav.parentLogin.text'] || 'Parent Login'}
+          </a>
+
           {/* Mobile Menu Toggle */}
           <button 
             className="md:hidden text-[var(--color-primary)]"
@@ -124,6 +139,7 @@ export default function Header() {
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
+          </div>
         </div>
       </div>
 
@@ -145,6 +161,8 @@ export default function Header() {
                 <a 
                   key={link.name} 
                   href={link.href}
+                  target={link.isExternal ? "_blank" : undefined}
+                  rel={link.isExternal ? "noopener noreferrer" : undefined}
                   className="text-base font-semibold text-[var(--color-dark)] hover:text-[var(--color-primary)]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
